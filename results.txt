@@ -1,0 +1,96 @@
+Name: Crosby Nash
+Email: crosbyn@bu.edu
+
+Partner Name: N/A
+Partner Email: N/A
+
+All results except for num.solved have have been rounded to one decimal place.
+
+puzzles with 5-move optimal solutions
+-------------------------------------
+algorithm                num. solved    avg. moves    avg. states tested
+------------------------------------------------------------------------
+random			10		5.0		39.3
+BFS			10		5.0		47.1
+DFS (depth limit 20)	10		16.2		19072.7
+DFS (depth limit 50)	10		48.2		49043.0
+Greedy Search (using h1)10		5.4		70.3
+A* (using h1)		10		5.0		6.5
+
+puzzles with 10-move optimal solutions
+-------------------------------------
+algorithm                num. solved    avg. moves    avg. states tested
+------------------------------------------------------------------------
+random			10		14.0		7323.1
+BFS			10		10.0		747.4
+DFS (depth limit 20)	10		18.8		24858.0
+DFS (depth limit 50)	10		49.2		92287.3
+Greedy Search (using h1)10		97.6		7422.7
+A* (using h1)		10		10		27.3
+
+puzzles with 15-move optimal solutions
+-------------------------------------
+algorithm                num. solved    avg. moves    avg. states tested
+------------------------------------------------------------------------
+random			10		19.2		42581.5
+BFS			10		15.0		12672.0
+DFS (depth limit 20)	10		17.8		68659.0
+DFS (depth limit 50)	10		48.6		111406.0
+Greedy Search (using h1) 9		132.6		23823.8
+A* (using h1)		10		15.0		313.8
+
+During the experiments, DFS took the longest to find the best solutions. The length of time of which it took is related to the average number of states tested. Adding a larger depth limit further increased the length of time took due to a larger average number of states tested. By adding more moves, in the 10-move optimal puzzles and the 15-move optimal puzzles, this further increased the average amount of states tested, and as such, length of time required. The best performing state space search is the A* search method as it average moves were exact to the optimal moves and it also consistently had the least amount of states. The random method in some individual tests had performed better than the rest, but in others, it was the worst. Its results were highly varied and faced similar problems to the DFS method as the average number of states tested increased with puzzles of higher move optimal solutions. The Greedy Search method performed similarly to the A* method in the 5-move optimal puzzles but then become a lot slower as the number of moves for an optimal solution grew higher. I could only use seven tests as three of them had taken more than five minutes to compute in the 15-move optimal solution puzzles. The BFS method did well in that it took the exact amount of moves as the optimal moves for the solution for the 5-move optimal solution, but the number of states greatly exponentially increased as higher move optimal puzzles were tested. 
+
+heuristic h2
+------------
+This heuristic uses a new function in the Board class called tiles_away. The function tiles_away first iterates through each element in the Board. If the element it selects does not match its intended position, that is, if it does not equal to the element in the same position as the GOAL_TILES, then it will perform calculations to determine how far way it is from its intended position. The Board is a 3x3 grid and goes from zero to eight. It first checks to see if the element is not the string, zero. This is done as the string zero represents an empty slot in the board and should not be taken into account. It then checks to see if the remainder and integer from dividing the element by three is not equal to the row or column. It is divided by three as there are three columns and rows. The absolute value function is used as the rows and columns are numbered from zero to three, thus the result of this division must be positive. The integer from the division results in which row the element is currently on. As the loop iterates through each row, this integer is compared to the current row it is looking through. The remainder from the division results in the current column the element is in. Thus, if an element is not in its intended row and column, then the function will add the number of tiles away it is from its position. To do this, it takes the difference between the difference in rows and difference in columns it is from the intended row and column. To work out how far the element is from its intended row, it first subtracts the current row it is iterating through with the integer from the division of the element. Then it will result in its absolute value as to avoid any negative numbers since half of the elements are above 4. The sum of both differences is then added to the variable num, to add to the total amount of distances away each element is. If an element is in its intended column, but not the intended row, then the function will perform the same calculations but only looking at the difference in rows. Likewise, if the element is in its intended row, but not in its intended column, then the function will perform the same calculations but only looking at the difference in columns. The function then returns the total number of distances away each tile is and feeds it to the priority function of the Searcher.
+
+puzzles with 18-move optimal solutions
+--------------------------------------
+algorithm              num. solved    avg. moves    avg. states tested
+----------------------------------------------------------------------
+Greedy (heuristic h1)	10		193.4		58312.4
+Greedy (heuristic h2)	10		76.2		725.7
+# Greedy with any other heuristics
+
+A* (heuristic h1)	10		18		1602.0
+A* (heuristic h2)	10		18		239.3
+# A* with any other heuristics
+
+puzzles with 21-move optimal solutions
+--------------------------------------
+algorithm              num. solved    avg. moves    avg. states tested
+----------------------------------------------------------------------
+Greedy (heuristic h1)	0		- -		- -
+Greedy (heuristic h2)	10		75.4		370.7
+# Greedy with any other heuristics
+
+A* (heuristic h1)	10		21		6301.7
+A* (heuristic h2)	10		21		482.3
+# A* with any other heuristics
+
+puzzles with 24-move optimal solutions
+--------------------------------------
+algorithm              num. solved    avg. moves    avg. states tested
+----------------------------------------------------------------------
+Greedy (heuristic h1)	0		- -		- -
+Greedy (heuristic h2)	10		75.2		593.3
+# Greedy with any other heuristics
+
+A* (heuristic h1)	10		24		26948.9
+A* (heuristic h2)	10		24		1065.5
+# A* with any other heuristics
+
+puzzles with 27-move optimal solutions
+--------------------------------------
+algorithm              num. solved    avg. moves    avg. states tested
+----------------------------------------------------------------------
+Greedy (heuristic h1)	0		- -		- -
+Greedy (heuristic h2)	10		90.8		693.3
+# Greedy with any other heuristics
+
+A* (heuristic h1)	0		- - 		- -
+A* (heuristic h2)	10		27		5043.0
+# A* with any other heuristics
+
+During the experiment using the h1 heuristic, the Greedy search algorithm suffered again with taking abnormally long to calculate the amount of moves to get to the solution for three of the tests. As such, these were not included. The length of time needed exponentially increased with each increased move optimal puzzle, thus due to insufficient computing power needed to perform these calculations, the experiments were cancelled as the time needed was highly unreasonable. I let the algorithm try to compute the solutions is less than 5 minutes per puzzle, but failed to do so each time. However, there was a drastic improvement using the h2 heuristic. During the 18-move optimal solution puzzles, not only did the number of average moves almost halve with the second heuristic, but the number of average states tested drastically decreased by almost four times even with the inclusion of three more tests than the use of the first heuristic. Thus, the h2 heuristic dramatically improved the performance of the search algorithm Greedy. With regards to the rest of the experiments, the search algorithm Greedy performed much better and was able to find the solution to each puzzle at a reasonable time. With regards to the A* searcher, it was able to perform all ten tests from nearly all of the experiments at a reasonable time length. It struggled using the h1 heuristic function when doing the 27-move optimal solution puzzles as the length of time needed was sub-optimal due to, as mentioned previously, the lack of computing power. During the 18-move optimal solution puzzles, the number of average moves stayed the same between both heuristic functions, however, the number of average states tested greatly decreased by almost eight times when using the second heuristic function. During the 21-move optimal solution puzzles, the second heuristic performed 15 times less average states tested due to being much more efficient. The same level of performance was seen in the 24-move optimal solution puzzles as the search algorithm performed 26 times less average states tested. However, during the 27-move optimal solution puzzles, there is no direct comparison as the algorithm took too long to compute the solutions to the same puzzles using the h1 heuristic function. Thus, the searcher became a lot more efficient and was able to solve for solutions using less calculations.
