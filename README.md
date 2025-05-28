@@ -16,7 +16,7 @@ The project also provides performance analysis (moves required, number of states
 
 ### Clone the repository
 ```bash
-git clone https://github.com/<username>/PuzzleSolver.git
+https://github.com/cros-nash/PuzzleSolver.git
 cd PuzzleSolver
 ```
 
